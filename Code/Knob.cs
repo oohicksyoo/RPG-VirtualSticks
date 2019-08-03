@@ -13,6 +13,15 @@ namespace RPG.VirtualSticks {
             startPosition = transform.position;
         }
 
+        public void SetSize(float sizePercent, float parentSize) {
+            RectTransform rt = GetComponent<RectTransform>();
+            Vector2 size = rt.sizeDelta;
+
+            size.x = size.y = sizePercent * parentSize;
+
+            rt.sizeDelta = size;
+        }
+
         public void UpdateKnob() {
             var touchCount = Input.touchCount;
             var countIndex = touchCount - 1;

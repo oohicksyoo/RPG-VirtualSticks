@@ -13,6 +13,9 @@ namespace RPG.VirtualSticks {
         [SerializeField]
         [Range(0.0f, 1.0f)]
         private float knobDistance = 1;
+        [SerializeField]
+        [Range(0.1f, 0.9f)]
+        private float knobSizePercent = 0.48f;
 
         [Header("Children")]
         [SerializeField]
@@ -57,6 +60,8 @@ namespace RPG.VirtualSticks {
 
             currentAxis = Vector3.zero;
             currentAngle = 0;
+
+            knob.SetSize(knobSizePercent, size);
         }
 
         public void Update() {
