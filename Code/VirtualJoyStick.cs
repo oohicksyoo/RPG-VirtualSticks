@@ -66,12 +66,20 @@ namespace RPG.VirtualSticks {
 
             var distance = Vector3.Distance(knob.transform.position, transform.position);
 
+            //Only allow the knob to go so far
             if (distance > requiredDistance) {
                 distance = requiredDistance;
                 knob.transform.position = transform.position + (direction * requiredDistance);
-            }
+            }   
 
-            direction *= distance;
+            //Determine what event to fire
+            if (joystickType == JoystickType.Axis) {
+                joystickEventAxis.Invoke(direction);
+            } else if (joystickType == JoystickType.Angle) {
+                float angle = Vector2.Angle(Vector2.up, direction);
+                angle = (direction.x < 0) ? 360 - angle : angle;// Check for angle when direction x is on the left side
+                joystickEventAngle.Invoke(angle);
+            }
         }
     }
 
