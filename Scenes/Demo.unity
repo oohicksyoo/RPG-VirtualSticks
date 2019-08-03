@@ -900,6 +900,16 @@ PrefabInstance:
       propertyPath: knobDistance
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 288529148889363961, guid: 7168824944dc7d34ebfa3a88405e8582,
+        type: 3}
+      propertyPath: updateType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 288529148889363961, guid: 7168824944dc7d34ebfa3a88405e8582,
+        type: 3}
+      propertyPath: joystickType
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 288529147910416977, guid: 7168824944dc7d34ebfa3a88405e8582,
         type: 3}
       propertyPath: m_AnchoredPosition.y

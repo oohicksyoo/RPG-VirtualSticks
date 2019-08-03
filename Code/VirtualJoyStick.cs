@@ -46,7 +46,7 @@ namespace RPG.VirtualSticks {
         }
         #endregion
 
-        private Vector2 currentAxis;
+        private Vector3 currentAxis;
         private float currentAngle;
         private float size;
         private float requiredDistance;
@@ -54,6 +54,9 @@ namespace RPG.VirtualSticks {
         public void Start() {
             size = GetComponent<RectTransform>().sizeDelta.x;
             requiredDistance = knobDistance * (size * 0.5f);
+
+            currentAxis = Vector3.zero;
+            currentAngle = 0;
         }
 
         public void Update() {
@@ -72,10 +75,14 @@ namespace RPG.VirtualSticks {
 
             //Determine what event to fire
             if (joystickType == JoystickType.Axis) {
+                if (updateType == UpdateType.OnlyOnChange && currentAxis == direction) return;
+                currentAxis = direction;
                 joystickEventAxis.Invoke(direction);
             } else if (joystickType == JoystickType.Angle) {
                 float angle = Vector2.Angle(Vector2.up, direction);
                 angle = (direction.x < 0) ? 360 - angle : angle;// Check for angle when direction x is on the left side
+                if (updateType == UpdateType.OnlyOnChange && currentAngle == angle) return;
+                currentAngle = angle;
                 joystickEventAngle.Invoke(angle);
             }
         }
