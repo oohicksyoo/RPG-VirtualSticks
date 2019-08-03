@@ -51,12 +51,27 @@ namespace RPG.VirtualSticks {
         private Vector2 currentAxis;
         private float currentAngle;
         private float size;
+        private float requiredDistance;
 
         public void Start() {
             size = GetComponent<RectTransform>().sizeDelta.x;
+            requiredDistance = knobDistance * (size * 0.5f);
         }
 
         public void Update() {
+            knob.UpdateKnob();
+
+            var direction = knob.transform.position - transform.position;
+            direction.Normalize();
+
+            var distance = Vector3.Distance(knob.transform.position, transform.position);
+
+            if (distance > requiredDistance) {
+                distance = requiredDistance;
+                knob.transform.position = transform.position + (direction * requiredDistance);
+            }
+
+            direction *= distance;
         }
     }
 

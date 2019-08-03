@@ -1,37 +1,48 @@
-﻿using System.Collections;
+﻿using Project.Utility.Attributes;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace RPG.VirtualSticks {
     public class Knob : MonoBehaviour {
 
+        private bool hasTouch;
         private Touch currentTouch;
+        private Vector3 startPosition;
 
-        public void Update() {
+        public void Awake() {
+            startPosition = transform.position;
+        }
+
+        public void UpdateKnob() {
             var touchCount = Input.touchCount;
+            var countIndex = touchCount - 1;
+
             if (touchCount > 0) {
-                currentTouch = Input.GetTouch(touchCount - 1);
-                if (EventSystem.current.IsPointerOverGameObject(currentTouch.fingerId)) {
-                    Debug.LogFormat("Touch");
+                if (Input.touches.Any(x => EventSystem.current.IsPointerOverGameObject(x.fingerId) && !hasTouch) || (hasTouch && currentTouch.phase != TouchPhase.Ended)) {
+
+                    currentTouch = (!hasTouch) ? Input.touches.SingleOrDefault(x => EventSystem.current.IsPointerOverGameObject(x.fingerId)) : Input.GetTouch(currentTouch.fingerId);
+
                     switch (currentTouch.phase) {
                         case TouchPhase.Began:
-                            Debug.Log("Begin");
+                            hasTouch = true;
                             break;
                         case TouchPhase.Moved:
-                            Debug.Log("Moved");
-                            break;
                         case TouchPhase.Stationary:
-                            Debug.Log("Stationary");
+                            hasTouch = true;
+                            transform.position = currentTouch.position;
                             break;
                         case TouchPhase.Ended:
-                            Debug.Log("Ended");
-                            break;
                         case TouchPhase.Canceled:
-                            Debug.Log("Canceled");
+                            transform.position = startPosition;
+                            hasTouch = false;
                             break;
                     }
                 }
+            } else if (hasTouch) {
+                hasTouch = false;
             }
         }
     }
