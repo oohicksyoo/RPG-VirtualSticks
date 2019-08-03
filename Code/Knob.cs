@@ -3,15 +3,14 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace RPG.VirtualSticks {
-    public class Knob : MonoBehaviour {
+    public class Knob : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler {
 
-        private bool hasTouch;
         private Touch currentTouch;
         private Vector3 startPosition;
 
         public void Awake() {
-            startPosition = transform.position;
-        }
+            startPosition = transform.localPosition;
+        }        
 
         public void SetSize(float sizePercent, float parentSize) {
             RectTransform rt = GetComponent<RectTransform>();
@@ -22,34 +21,15 @@ namespace RPG.VirtualSticks {
             rt.sizeDelta = size;
         }
 
-        public void UpdateKnob() {
-            var touchCount = Input.touchCount;
-            var countIndex = touchCount - 1;
+        //Needed in order to get a proper reading for OnPointerUp
+        public void OnPointerDown(PointerEventData eventData) {}
 
-            if (touchCount > 0) {
-                if (Input.touches.Any(x => EventSystem.current.IsPointerOverGameObject(x.fingerId) && !hasTouch) || (hasTouch && currentTouch.phase != TouchPhase.Ended)) {
+        public void OnPointerUp(PointerEventData eventData) {
+            transform.localPosition = startPosition;
+        }
 
-                    currentTouch = (!hasTouch) ? Input.touches.SingleOrDefault(x => EventSystem.current.IsPointerOverGameObject(x.fingerId)) : Input.GetTouch(currentTouch.fingerId);
-
-                    switch (currentTouch.phase) {
-                        case TouchPhase.Began:
-                            hasTouch = true;
-                            break;
-                        case TouchPhase.Moved:
-                        case TouchPhase.Stationary:
-                            hasTouch = true;
-                            transform.position = currentTouch.position;
-                            break;
-                        case TouchPhase.Ended:
-                        case TouchPhase.Canceled:
-                            transform.position = startPosition;
-                            hasTouch = false;
-                            break;
-                    }
-                }
-            } else if (hasTouch) {
-                hasTouch = false;
-            }
+        public void OnDrag(PointerEventData eventData) {
+            transform.position = eventData.position;
         }
     }
 }

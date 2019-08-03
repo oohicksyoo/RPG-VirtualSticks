@@ -65,7 +65,6 @@ namespace RPG.VirtualSticks {
         }
 
         public void Update() {
-            knob.UpdateKnob();
 
             var direction = knob.transform.position - transform.position;
             direction.Normalize();
