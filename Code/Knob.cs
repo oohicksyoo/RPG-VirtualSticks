@@ -9,6 +9,11 @@ namespace RPG.VirtualSticks {
         private Vector3 startPosition;
         private RectTransform rectTransform;
 
+        public bool IsDown {
+            get;
+            private set;
+        }
+
         public void Awake() {
             rectTransform = GetComponent<RectTransform>();
             startPosition = rectTransform.anchoredPosition;
@@ -21,13 +26,16 @@ namespace RPG.VirtualSticks {
         }
 
         //Needed in order to get a proper reading for OnPointerUp
-        public void OnPointerDown(PointerEventData eventData) {}
+        public void OnPointerDown(PointerEventData eventData) {
+            IsDown = true;
+        }
 
         public void OnPointerUp(PointerEventData eventData) {
+            IsDown = false;
             rectTransform.anchoredPosition = startPosition;
         }
 
-        public void OnDrag(PointerEventData eventData) {
+        public void OnDrag(PointerEventData eventData) {            
             transform.position = eventData.position;
         }
     }

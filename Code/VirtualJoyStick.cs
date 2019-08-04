@@ -47,6 +47,12 @@ namespace RPG.VirtualSticks {
                 joystickEventAngle = value;
             }
         }
+
+        public bool IsActive {
+            get {
+                return knob.IsDown;
+            }
+        }
         #endregion
 
         private Vector3 currentAxis;
@@ -84,7 +90,8 @@ namespace RPG.VirtualSticks {
                 joystickEventAxis.Invoke(direction);
             } else if (joystickType == JoystickType.Angle) {
                 float angle = Vector2.Angle(Vector2.up, direction);
-                angle = (direction.x < 0) ? 360 - angle : angle;// Check for angle when direction x is on the left side
+                angle = (direction.x < 0) ? 360 - angle : angle;// Check for angle when direction x is on the left sided
+                if (!knob.IsDown && updateType == UpdateType.OnlyOnChange) return;
                 if (updateType == UpdateType.OnlyOnChange && currentAngle == angle) return;
                 currentAngle = angle;
                 joystickEventAngle.Invoke(angle);
