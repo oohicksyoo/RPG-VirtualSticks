@@ -7,25 +7,24 @@ namespace RPG.VirtualSticks {
 
         private Touch currentTouch;
         private Vector3 startPosition;
+        private RectTransform rectTransform;
 
         public void Awake() {
-            startPosition = transform.localPosition;
+            rectTransform = GetComponent<RectTransform>();
+            startPosition = rectTransform.anchoredPosition;
         }        
 
-        public void SetSize(float sizePercent, float parentSize) {
-            RectTransform rt = GetComponent<RectTransform>();
-            Vector2 size = rt.sizeDelta;
-
+        public void SetSize(float sizePercent, float parentSize) {            
+            Vector2 size = rectTransform.sizeDelta;
             size.x = size.y = sizePercent * parentSize;
-
-            rt.sizeDelta = size;
+            rectTransform.sizeDelta = size;
         }
 
         //Needed in order to get a proper reading for OnPointerUp
         public void OnPointerDown(PointerEventData eventData) {}
 
         public void OnPointerUp(PointerEventData eventData) {
-            transform.localPosition = startPosition;
+            rectTransform.anchoredPosition = startPosition;
         }
 
         public void OnDrag(PointerEventData eventData) {

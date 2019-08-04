@@ -748,42 +748,42 @@ PrefabInstance:
     - target: {fileID: 288529148889363960, guid: 7168824944dc7d34ebfa3a88405e8582,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 373
+      value: -125
       objectReference: {fileID: 0}
     - target: {fileID: 288529148889363960, guid: 7168824944dc7d34ebfa3a88405e8582,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 125
       objectReference: {fileID: 0}
     - target: {fileID: 288529148889363960, guid: 7168824944dc7d34ebfa3a88405e8582,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 160
+      value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 288529148889363960, guid: 7168824944dc7d34ebfa3a88405e8582,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 160
+      value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 288529148889363960, guid: 7168824944dc7d34ebfa3a88405e8582,
         type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 288529148889363960, guid: 7168824944dc7d34ebfa3a88405e8582,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 288529148889363960, guid: 7168824944dc7d34ebfa3a88405e8582,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 288529148889363960, guid: 7168824944dc7d34ebfa3a88405e8582,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 288529148889363960, guid: 7168824944dc7d34ebfa3a88405e8582,
         type: 3}
@@ -1022,6 +1022,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: '[ Virtual JoyStick ]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 288529148889363963, guid: 7168824944dc7d34ebfa3a88405e8582,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 288529148889363960, guid: 7168824944dc7d34ebfa3a88405e8582,
         type: 3}

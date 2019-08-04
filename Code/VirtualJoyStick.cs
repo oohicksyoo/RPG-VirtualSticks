@@ -56,7 +56,7 @@ namespace RPG.VirtualSticks {
 
         public void Start() {
             size = GetComponent<RectTransform>().sizeDelta.x;
-            requiredDistance = knobDistance * (size * 0.5f);
+            requiredDistance = knobDistance * (size * 0.5f) * knobSizePercent;
 
             currentAxis = Vector3.zero;
             currentAngle = 0;
