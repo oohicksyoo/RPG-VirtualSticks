@@ -16,3 +16,4 @@ Currently this library is a work in progress and will be updated as new features
 - On release the knob will return home
 - Knob distance can be adjust from 0 to 1 where 1 is the middle of the knob against the background edge
 - Knob will let you keep dragging outside of bounds as long as you still have touch input with that specific finger
+- Can get the state of the know if it is currently being used or not
