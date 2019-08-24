@@ -26,6 +26,8 @@ namespace RPG.VirtualSticks {
         private JoystickEventAxis joystickEventAxis;
         [SerializeField]
         private JoystickEventAngle joystickEventAngle;
+        [SerializeField] 
+        private JoystickEventActive joystickEventActive;
 
         #region Properties to access events through code
         public JoystickEventAxis JoystickEventAxis {
@@ -48,6 +50,12 @@ namespace RPG.VirtualSticks {
             }
         }
 
+        public JoystickEventActive JoystickEventActive
+        {
+            get => joystickEventActive;
+            set => joystickEventActive = value;
+        }
+
         public bool IsActive {
             get {
                 return knob.IsDown;
@@ -68,6 +76,10 @@ namespace RPG.VirtualSticks {
             currentAngle = 0;
 
             knob.SetSize(knobSizePercent, size);
+
+            knob.IsActiveEvent += (value) => {
+                joystickEventActive.Invoke(value);
+            };
         }
 
         public void Update() {
@@ -103,6 +115,8 @@ namespace RPG.VirtualSticks {
     public class JoystickEventAxis : UnityEvent<Vector2> {}
     [Serializable]
     public class JoystickEventAngle : UnityEvent<float> { }
+    [Serializable]
+    public class JoystickEventActive : UnityEvent<bool> { }
     public enum JoystickType {
         Axis = 0,
         Angle

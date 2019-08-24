@@ -1,9 +1,12 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace RPG.VirtualSticks {
     public class Knob : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler {
+
+        public Action<bool> IsActiveEvent = (value) => { };
 
         private Touch currentTouch;
         private Vector3 startPosition;
@@ -27,16 +30,21 @@ namespace RPG.VirtualSticks {
 
         //Needed in order to get a proper reading for OnPointerUp
         public void OnPointerDown(PointerEventData eventData) {
-            IsDown = true;
+            SetDownState(true);
         }
 
         public void OnPointerUp(PointerEventData eventData) {
-            IsDown = false;
+            SetDownState(false);
             rectTransform.anchoredPosition = startPosition;
         }
 
         public void OnDrag(PointerEventData eventData) {            
             transform.position = eventData.position;
+        }
+
+        private void SetDownState(bool state) {
+            IsDown = state;
+            IsActiveEvent.Invoke(IsDown);
         }
     }
 }
